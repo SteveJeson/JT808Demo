@@ -2,6 +2,7 @@ package com.zenchn.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.log4j.Logger;
@@ -10,6 +11,7 @@ import org.apache.mina.core.buffer.SimpleBufferAllocator;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
@@ -29,7 +31,10 @@ public class TCPServer {
 	    IoBuffer.setAllocator(new SimpleBufferAllocator()); //设置分配器可使用新的缓冲区
 		acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);// 读写通道10秒内无操作进入空闲状态
 		acceptor.getSessionConfig().setWriteTimeout(30000);//设置超时时间
-		acceptor.getFilterChain().addLast("codec",new ProtocolCodecFilter(new MessageCodecFactory())); //添加自定义过滤器
+//		acceptor.getFilterChain().addLast("codec",new ProtocolCodecFilter(new MessageCodecFactory())); //添加自定义过滤器
+		acceptor.getFilterChain().addLast("codec",
+	    new ProtocolCodecFilter(new TextLineCodecFactory(Charset
+	      .forName("utf-8"))));
 		acceptor.setHandler(new IOHandler());// 绑定逻辑处理器
 		try {
 			acceptor.bind(new InetSocketAddress(port)); //绑定端口

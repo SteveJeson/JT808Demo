@@ -12,7 +12,6 @@ public class MessageCodecFactory implements ProtocolCodecFactory {
 
 
 	 public MessageCodecFactory() {
-		 System.out.println("MessageCodecFactory");
 	        encoder = new MessageEncoder(); //±àÂëÆ÷
 	        decoder = new MessageDecoder(); //½âÂëÆ÷
     }

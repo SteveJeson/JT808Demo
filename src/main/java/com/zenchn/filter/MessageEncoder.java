@@ -9,6 +9,8 @@ public class MessageEncoder extends ProtocolEncoderAdapter {
 	public void encode(IoSession session, Object message, ProtocolEncoderOutput out)
 			throws Exception {
 		//无需处理
+		System.out.println("MessageEncoder..............");
+		out.write(message);
 	}
 
 }

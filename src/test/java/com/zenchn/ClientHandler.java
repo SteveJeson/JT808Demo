@@ -9,8 +9,9 @@ public class ClientHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message)
 			throws Exception {
-		System.out.println("ClientHandler:messageReceived£º"+message.toString());
 		super.messageReceived(session, message);
+		System.out.println("ClientHandler:messageReceived£º"+message.toString());
+		
 	}
 
 	@Override

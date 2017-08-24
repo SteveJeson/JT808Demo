@@ -7,7 +7,6 @@ import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoConnector;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.filter.codec.textline.LineDelimiter;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
@@ -37,13 +36,18 @@ public class MyMinaClient {
 	 * @return
 	 */
 	public IoSession getIoSession(IoConnector connector,String ip,int port){
-		 IoSession session=null;
+		 IoSession session = null;
 		ConnectFuture future = connector.connect(new InetSocketAddress(ip, port));
 		future.awaitUninterruptibly();
 		session = future.getSession();
 	    return session;
 	}
 	
+	/**
+	 * ·¢ËÍÏûÏ¢
+	 * @param session
+	 * @param object
+	 */
 	public void sendMsg(IoSession session,Object object){
 		session.write(object);
 	}
